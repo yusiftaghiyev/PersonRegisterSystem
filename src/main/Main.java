@@ -13,7 +13,7 @@ public class Main {
         int menu = 0;
         while (true) {
 
-            menu = InputUtil.requireNumber("Menudan secim edin:"
+            menu = InputUtil.requireNumber("Menudan seciminizi edin:"
                     + "\n1.Add Person."
                     + "\n2.Show All Persons."
                     + "\n3.Find Persons."

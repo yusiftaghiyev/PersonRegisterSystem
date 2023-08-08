@@ -1,11 +1,14 @@
 
 package beans;
 
+import main.PersonData;
+
+import java.util.Comparator;
+
 /**
- *
  * @author Yusif
  */
-public class Person {
+public class Person  implements Comparator<Person> {
 
     private String name;
     private String surname;
@@ -20,7 +23,10 @@ public class Person {
         this.surname = surname;
         this.age = age;
     }
-
+    @Override
+    public int compare(Person person1, Person person2) {
+        return Integer.compare(person1.getAge(), person2.getAge());
+    }
     public String getName() {
         return name;
     }
@@ -50,4 +56,5 @@ public class Person {
         return this.getName() + " " + this.getSurname() + " " + this.getAge();
 
     }
+
 }

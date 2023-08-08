@@ -15,8 +15,8 @@ public class InputOutput {
 
     public static void fileReader(String filename) throws IOException {
         try (BufferedReader bw = new BufferedReader(new FileReader(filename));) {
-            System.out.println(bw.readLine() + "\n");
-            System.out.println(bw.read());
+            System.out.println(bw.readLine() );
+            //System.out.println(bw.read());
         }
     }
 

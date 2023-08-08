@@ -5,8 +5,10 @@ import main.PersonData;
 import beans.Person;
 
 import java.io.IOException;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 /**
  * @author Yusif
@@ -34,11 +36,15 @@ public class PersonUtil {
         for (int i = 0; i < PersonData.persons.length; i++) {
             Person person = PersonData.persons[i];
             System.out.println((i + 1) + "." + person.getFullInfo());
-            try {
-                InputOutput.fileReader("src/main/person.txt");
-            } catch (IOException ex) {
-                Logger.getLogger(PersonUtil.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+        }
+    }
+
+    public static void printAllRegisteredPersonsFromData() {
+        try {
+            InputOutput.fileReader("src/main/person.txt");
+        } catch (IOException ex) {
+            Logger.getLogger(PersonUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -57,7 +63,7 @@ public class PersonUtil {
     }
 
     public static void findPersonAndPrint() {
-        String text = InputUtil.requireText("type name,surname:");
+        String text = InputUtil.requireText("Ad ve ya soyada gore axtarin:");
         Person[] result = findPersons(text);
         for (int i = 0; i < result.length; i++) {
 
@@ -113,7 +119,63 @@ public class PersonUtil {
         }
     }
 
+    public static void sortPerson() {
+        if (PersonData.persons == null) {
+            return;
+        }
+        int i = InputUtil.requireNumber("Sort novunu secin:"
+                + "\n1.Ad,Soyada gore (A-Z)"
+                + "\n2.Ad,Soyada gore (Z-A)"
+                + "\n3.Yasa gore (A-Z)"
+                + "\n4.Yasa (Z-A)");
+
+        if (i == 1) {
+            Arrays.sort(PersonData.persons, Comparator.comparing(Person::getName).thenComparing(Person::getSurname));
+
+            System.out.println("A-Z (Artan sıra) sıralama:");
+            for (Person person : PersonData.persons) {
+                System.out.println(person.getFullInfo());
+            }
+        } else if (i == 2) {
+
+
+            Arrays.sort(PersonData.persons, Comparator.comparing(Person::getSurname).thenComparing(Person::getName, Comparator.reverseOrder()));
+
+            System.out.println("Z-A (Azalan sıra) sıralama:");
+            for (Person person : PersonData.persons) {
+                System.out.println(person.getFullInfo());
+            }
+
+        } else if (i == 3) {
+
+
+            Arrays.sort(PersonData.persons, Comparator.comparingInt(Person::getAge));
+
+            System.out.println("A-Z yaşa göre sıralama:");
+            for (Person person : PersonData.persons) {
+                System.out.println(person.getFullInfo());
+            }
+        } else if (i == 4) {
+
+            Arrays.sort(PersonData.persons, Comparator.comparingInt(Person::getAge).reversed());
+
+            System.out.println("Z-A yaşa göre sıralama:");
+            for (Person person : PersonData.persons) {
+                System.out.println(person.getFullInfo());
+            }
+        } else System.out.println("Sort novunu secmediniz");
+        sortPerson();
+
+    }
+
     public static void deletePerson() {
-        PersonData.persons = null;
+        System.out.println("Melumatlarin silinmesini tesdiqleyirsiz? 1:Beli 2:Xeyir");
+        Scanner sc = new Scanner(System.in);
+        int beli = sc.nextInt();
+        if (beli == 1) {
+            PersonData.persons = null;
+            System.out.println("Melumatlar ugurla silindi");
+        } else System.out.println("Melumatlarin silinmesi legv olundu");
+
     }
 }

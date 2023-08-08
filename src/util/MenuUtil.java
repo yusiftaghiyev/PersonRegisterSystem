@@ -1,4 +1,3 @@
-
 package util;
 
 import main.PersonData;
@@ -13,8 +12,10 @@ public class MenuUtil {
             System.out.println("Add person");
             PersonUtil.registerPersons();
         } else if (selectedMenu == 2) {
-            System.out.println("List Person");
+            System.out.println("List Person from Array");
             PersonUtil.printAllRegisteredPersons();
+            System.out.println("List Person from Person.txt");
+            PersonUtil.printAllRegisteredPersonsFromData();
         } else if (selectedMenu == 3) {
             if (PersonData.persons == null) {
                 return;
@@ -22,14 +23,11 @@ public class MenuUtil {
             PersonUtil.findPersonAndPrint();
 
         } else if (selectedMenu == 4) {
-            System.out.println("Sort Person");
-
+            PersonUtil.sortPerson();
         } else if (selectedMenu == 5) {
             PersonUtil.updatePerson();
         } else if (selectedMenu == 6) {
-            System.out.println("Delete Person");
-            PersonData.persons = null;
-
+            PersonUtil.deletePerson();
 
         } else if (selectedMenu == 7) {
             MenuUtil.showSuccesMessage();
